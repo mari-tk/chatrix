@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import './App.css';
+import { useState } from 'react'
+import './App.css'
+import AuthPage from '../AuthPage/AuthPage'
+import { Routes, Route } from 'react-router-dom';
+import NavBar from '../../components/NavBar/NavBar'
 import { getUser } from '../../utilities/users-service';
-import AuthPage from '../AuthPage/AuthPage';
 
 export default function App() {
-  const [user, setUser] = useState(getUser());
+
+  const [user, setUser] = useState(getUser())
+
+  function updateUser(userState){
+    setUser(userState)
+  }
+
   return (
     <main className="App">
-
-        <AuthPage setUser={setUser} />
+      {/* <NavBar/> */}
+      <AuthPage setUser={updateUser} />
       
     </main>
-  );
+  )
 }
+
