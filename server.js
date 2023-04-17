@@ -21,11 +21,12 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use(require('./config/checkToken'));
 
 // Put all API routes here (before the catch-all)
+console.log("Current directory:", __dirname);
 app.use('/api/users', require('./routes/api/users'));
 
-// Protect all routes in the items router
-const ensureLoggedIn = require('./config/ensureLoggedIn');
-app.use('/api/items', ensureLoggedIn, require('./routes/api/items'));
+// Protect all routes in the chat router
+// const ensureLoggedIn = require('./config/ensureLoggedIn');
+// app.use('/api/chat', ensureLoggedIn, require('./routes/api/chat'));
 
 
 // "catch-all" route that will match all GET requests
