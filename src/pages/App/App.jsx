@@ -4,6 +4,7 @@ import AuthPage from '../AuthPage/AuthPage'
 import { Routes, Route } from 'react-router-dom';
 import NavBar from '../../components/NavBar/NavBar'
 import { getUser } from '../../utilities/users-service';
+import ChatPage from '../ChatPage/ChatPage';
 
 export default function App() {
 
@@ -15,9 +16,16 @@ export default function App() {
 
   return (
     <main className="App">
-      {/* <NavBar/> */}
-      <AuthPage setUser={updateUser} />
-      
+       {user ? 
+        <>
+          <NavBar user={user} updateUser={updateUser}/>
+          <Routes>
+            <Route path="/chat" element={<ChatPage/>}/>
+          </Routes>
+        </> 
+        :
+        <AuthPage setUser={updateUser} />
+      }
     </main>
   )
 }
