@@ -1,10 +1,17 @@
 //variables
 const express = require('express');
 const path = require('path');
+const http = require('http');
 const logger = require('morgan');
 require('dotenv').config();
 require('./config/database');
 const app = express();
+const server = http.createServer(app);
+const cors = require('cors');
+
+// socket.io server 
+io = require('./io');
+io.attach(server);
 
 //middleware
 app.use(logger('dev'));
