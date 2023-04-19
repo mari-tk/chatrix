@@ -10,7 +10,7 @@ export default function NavBar({user, updateUser}) {
   }
 
   return (
-    <nav>
+    <nav className="NavBarContainer">
       <h2>Welcome, {user.name}</h2>
       <Link to='' onClick={handleLogOut}>Log Out</Link>
     </nav>

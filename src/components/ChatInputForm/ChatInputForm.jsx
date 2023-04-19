@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
+import Button from '@mui/material/Button';
 
 export default function ChatInputForm({socket}) {
 
@@ -28,7 +29,7 @@ export default function ChatInputForm({socket}) {
         <form autoComplete="off" onSubmit={handleSubmit}>
           <label>Enter your message:</label>
           <input type="text" name="message" value={message} onChange={handleChange} required />
-          <button type="submit">SEND</button>
+          <Button variant="contained" type="submit">SEND</Button>
         </form>
       </div>
       <p className="error-message">&nbsp;{error}</p>
