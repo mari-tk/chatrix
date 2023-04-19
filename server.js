@@ -7,9 +7,8 @@ require('dotenv').config();
 const { Server } = require('socket.io');
 const jwt = require('jsonwebtoken');
 require('./config/database');
-const cors = require('cors');
-const Message = require('./models/message');
 const { sendMessage } = require('./controllers/api/chats');
+const activeConnections = new Set();
 
 const app = express();
 const server = http.createServer(app);
@@ -20,17 +19,23 @@ io.use(require('./config/checkSocketToken'));
 io.on('connection', (socket) => {
   console.log(`[${socket.id}] User '${socket.user.name}' connected`);
 
+  activeConnections.add(socket.user.name);
+
   socket.on('send_message', async ({ message }) => {
     await sendMessage(io, socket, message);
   });
 
   socket.on('disconnect', () => {
-    console.log(`[${socket.id}] User '${socket.user.name}' connected`);
+    console.log(`[${socket.id}] User '${socket.user.name}' disconnected`);
+    activeConnections.delete(socket.user.name);
   });
+
+  socket.on('getActiveConnections', () => {
+    socket.emit('activeConnections', Array.from(activeConnections));
+  });  
 });
 
 //middleware
-app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'build')));

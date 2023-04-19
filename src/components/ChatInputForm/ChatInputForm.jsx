@@ -1,8 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import * as chatsService from '../../utilities/chats-service';
 
-export default function ChatInputForm({user, socket}) {
+export default function ChatInputForm({socket}) {
 
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -16,8 +15,6 @@ export default function ChatInputForm({user, socket}) {
     // Prevent form from being submitted to the server
     evt.preventDefault();
     try {
-      // const sentMessage = await chatsService.sendMessage(message);
-      // socket.emit('join_main_room');
       socket.emit('send_message', {message} );
     } catch (e){
       console.log(e);
