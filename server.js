@@ -15,10 +15,12 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 io.use(require('./config/checkSocketToken'));
+console.log(io.engine.clientsCount);
+console.log(io.engine);
 
 io.on('connection', (socket) => {
+  console.log(io.engine.clientsCount);
   console.log(`[${socket.id}] User '${socket.user.name}' connected`);
-
   activeConnections.add(socket.user.name);
 
   socket.on('send_message', async ({ message }) => {
@@ -30,9 +32,10 @@ io.on('connection', (socket) => {
     activeConnections.delete(socket.user.name);
   });
 
-  socket.on('getActiveConnections', () => {
-    socket.emit('activeConnections', Array.from(activeConnections));
+  socket.on('get_active_connections', () => {
+    socket.emit('active_connections', Array.from(activeConnections));
   });  
+
 });
 
 //middleware

@@ -9,8 +9,7 @@ import ParticipantsList from '../../components/ParticipantsList/ParticipantsList
 const socket = io({
   auth: {
     token: getToken()
-  },
-  forceBase64: true
+  }
 });
 
 socket.on('connect_error', console.error);
@@ -26,9 +25,9 @@ export default function ChatPage({user}) {
   });
 
   useEffect(() => {
-    socket.emit('getActiveConnections');
+    socket.emit('get_active_connections');
 
-    socket.on('activeConnections', (connections) => {
+    socket.on('active_connections', (connections) => {
       setActiveConnections(connections);
       console.log(activeConnections);
     });
