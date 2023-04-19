@@ -4,35 +4,29 @@ const path = require('path');
 const http = require('http');
 const logger = require('morgan');
 require('dotenv').config();
+const { Server } = require('socket.io');
+const jwt = require('jsonwebtoken');
 require('./config/database');
 const cors = require('cors');
-
-const { Server } = require('socket.io');
+const Message = require('./models/message');
+const { sendMessage } = require('./controllers/api/chats');
 
 const app = express();
 const server = http.createServer(app);
+const io = new Server(server);
 
-const io = new Server(server, {
-  cors: {
-    origin: 'http://localhost:5173',
-    methods: ['GET', 'POST'],
-  }
-});
+io.use(require('./config/checkSocketToken'));
 
 io.on('connection', (socket) => {
-  console.log(`User connected with socket id ${socket.id}`);
-  
-  socket.join('main');
-  console.log(`User joined room Main with socket id ${socket.id}`);
+  console.log(`[${socket.id}] User '${socket.user.name}' connected`);
 
-  socket.on('send_message', (data) => {
-    console.log(`User ${data.user.name} sent message ${data.message}`);
-    socket.in('main').emit('receive_message', data);
-  })
+  socket.on('send_message', async ({ message }) => {
+    await sendMessage(io, socket, message);
+  });
 
   socket.on('disconnect', () => {
-    console.log('User disconnected', socket.id);
-  })
+    console.log(`[${socket.id}] User '${socket.user.name}' connected`);
+  });
 });
 
 //middleware
@@ -53,11 +47,6 @@ app.get('/*', function (req, res) {
 
 //listener
 const port = process.env.PORT || 3000;
-app.listen(port, function () {
+server.listen(port, function () {
   console.log(`Express app running on port ${port}`)
-});
-
-//socket io server
-server.listen(3001, function () {
-  console.log(`socket.io app running on port 3001`)
 });

@@ -5,13 +5,10 @@ module.exports = {
   getAllMessages
 }
 
-async function sendMessage(req, res) {
-  try {
-    const message = await Message.create({message: req.body.message, userId: req.user});
-    res.json(message);
-  } catch (error) {
-    res.status(400).json(error);
-  }
+async function sendMessage(io, socket, message) {
+  console.log(`User '${socket.user.name}' sent message ${message}`);
+  const dbMessage = await Message.create({message, userId: socket.user});
+  io.emit('receive_message', dbMessage);
 }
 
 async function getAllMessages(req, res) {
