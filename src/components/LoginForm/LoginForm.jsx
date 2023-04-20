@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import * as usersService from '../../utilities/users-service';
+import * as React from 'react';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 
 export default function LoginForm({ setUser }) {
   const [credentials, setCredentials] = useState({
@@ -30,17 +35,51 @@ export default function LoginForm({ setUser }) {
   }
 
   return (
-    <div>
-      <div className="form-container">
-        <form autoComplete="off" onSubmit={handleSubmit}>
-          <label>Email</label>
-          <input type="text" name="email" value={credentials.email} onChange={handleChange} required />
-          <label>Password</label>
-          <input type="password" name="password" value={credentials.password} onChange={handleChange} required />
-          <button type="submit">LOG IN</button>
-        </form>
-      </div>
-      <p className="error-message">&nbsp;{error}</p>
-    </div>
+    <>
+      <Box
+        sx={{
+          my: 8,
+          mx: 4,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Box component="form" noValidate onSubmit={handleSubmit}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            value={credentials.email}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            value={credentials.password}
+            onChange={handleChange}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Log In
+          </Button>
+          <p className="error-message">&nbsp;{error}</p>
+        </Box>
+      </Box>
+    </>
   );
 }
