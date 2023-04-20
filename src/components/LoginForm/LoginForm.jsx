@@ -4,8 +4,6 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 
 export default function LoginForm({ setUser }) {
   const [credentials, setCredentials] = useState({

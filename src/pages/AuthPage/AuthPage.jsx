@@ -8,6 +8,7 @@ import Link from '@mui/material/Link';
 import Avatar from '@mui/material/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
 
 
 export default function AuthPage({setUser}) {
@@ -29,20 +30,28 @@ export default function AuthPage({setUser}) {
         }}
       />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <Link href="#" onClick={() => setSignupForm(!signUp)}> {signUp ? "Have an account? Sign In" : "Don't have an account? SignUp"}
-      </Link>
-
-      <Typography component="h1" variant="h5">
-        <Avatar sx={{ bgcolor: 'purple' }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        {signUp? "Sign Up" : "Log In"}
-      </Typography>
-      {signUp ?
-      <SignUpForm setUser={setUser}/>
-      :
-      <LoginForm setUser={setUser}/>
-      }
+        <Box
+          sx={{
+          my: 8,
+          mx: 4,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+          }}
+        >
+          <Link href="#" onClick={() => setSignupForm(!signUp)}> {signUp ? "Have an account? Sign In" : "Don't have an account? SignUp"}</Link>
+          <Typography component="h1" variant="h5">
+            <Avatar sx={{ bgcolor: 'purple', margin: "auto"  }}>
+              <LockOutlinedIcon />
+            </Avatar>
+          {signUp? "Sign Up" : "Log In"}
+          </Typography>
+          {signUp ?
+          <SignUpForm setUser={setUser}/>
+          :
+          <LoginForm setUser={setUser}/>
+          }
+          </Box>
       </Grid>
     </Grid>
   )
