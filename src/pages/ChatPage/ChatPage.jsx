@@ -5,6 +5,7 @@ import { getToken } from '../../utilities/users-service';
 import * as chatsAPI from '../../utilities/chats-api'
 import Chat from '../../components/Chat/Chat';
 import ParticipantsList from '../../components/ParticipantsList/ParticipantsList';
+import './ChatPage.css'
 
 export default function ChatPage({user}) {
   const [messages, setMessages] = useState([]);
@@ -74,7 +75,7 @@ export default function ChatPage({user}) {
   }, []);
 
   return (
-    <div>
+    <div className="ChatContainer">
       ChatPage
       <ParticipantsList participants={activeConnections}/>
       <Chat messages={messages} sendMessage={sendMessage} user={user}/>
