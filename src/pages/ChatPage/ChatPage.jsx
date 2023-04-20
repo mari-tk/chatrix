@@ -1,66 +1,83 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react';
+import { io } from 'socket.io-client';
 import { getToken } from '../../utilities/users-service';
 import * as chatsAPI from '../../utilities/chats-api'
 import Chat from '../../components/Chat/Chat';
-import io from "socket.io-client";
 import ParticipantsList from '../../components/ParticipantsList/ParticipantsList';
 
-// const socket = io({
-//   auth: {
-//     token: getToken()
-//   }
-// });
-
-// socket.on('connect_error', console.error);
-
 export default function ChatPage({user}) {
-  const socket = useRef();
   const [messages, setMessages] = useState([]);
   const [activeConnections, setActiveConnections] = useState([]);
+  const socketRef = useRef();
 
+  // This effect will create a socket only once and will not be triggered by state change.
   useEffect(() => {
-    socket.current = io({
+    socketRef.current = io({
       auth: {
-        token: getToken()
-      }
+        token: getToken(),
+      },
     });
+
+    return () => {
+      socketRef.current.close();
+      socketRef.current = null;
+    };
+  }, []);
+
+  // This effect will be updated every time messages are changed.
+  useEffect(() => {
+    const {current: socket} = socketRef;
+
+    socket.on('connect', () => {
+      console.log('Connected');
+    });
+
+    socket.on('connect_error', console.error);
     
-    socket.current.on('connect_error', console.error);
-  })
-
-  useEffect(() => {
-    socket.current.on('receive_message', (data) => {
-      setMessages([...messages, data]);
-    });
-  });
-
-  useEffect(() => {
-    socket.current.emit('get_active_connections');
-
-    socket.current.on('active_connections', (connections) => {
-      setActiveConnections(connections);
-      console.log(activeConnections);
-    });
-
-    socket.current.on('disconnect', () => {
+    socket.on('disconnect', () => {
       console.log('Disconnected from server');
     });
 
-  }, []);
+    socket.on('receive_message', (data) => {
+      console.log('receive_message', messages);
+      setMessages([...messages, data]);
+    });
 
+    socket.on('active_connections', (connections) => {
+      console.log('Active connections: ', connections);
+      setActiveConnections(connections);
+    });
+
+    return () => {
+      // Remove any existing listeners for socket events.
+      socket.off();
+    };
+  }, [messages]);
+
+  const sendMessage = (message) => {
+    console.log('sendMessage', messages);
+    socketRef.current.emit('send_message', { message });
+  };
+
+  const doNotGetMessagesRef = useRef(false);
   useEffect(function() {
     async function getMessages() {
       setMessages(await chatsAPI.getAllMessages());
     }
-    getMessages();
+    if (!doNotGetMessagesRef.current) {
+      getMessages();
+    }
+    return () => {
+      doNotGetMessagesRef.current = true;
+    };
   }, []);
 
   return (
     <div>
       ChatPage
       <ParticipantsList participants={activeConnections}/>
-      <Chat messages={messages} socket={socket} user={user}/>
+      <Chat messages={messages} sendMessage={sendMessage} user={user}/>
     </div>
   )
 }

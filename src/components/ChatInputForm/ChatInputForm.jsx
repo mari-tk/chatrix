@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 
-export default function ChatInputForm({socket}) {
+export default function ChatInputForm({sendMessage}) {
 
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -15,12 +15,7 @@ export default function ChatInputForm({socket}) {
   async function handleSubmit(evt) {
     // Prevent form from being submitted to the server
     evt.preventDefault();
-    try {
-      socket.emit('send_message', {message} );
-    } catch (e){
-      console.log(e);
-      setError('Message was not sent. Try again.');
-    }
+    sendMessage(message);
   }
 
   return (

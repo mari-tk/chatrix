@@ -8,7 +8,6 @@ const { Server } = require('socket.io');
 const jwt = require('jsonwebtoken');
 require('./config/database');
 const { sendMessage } = require('./controllers/api/chats');
-const activeConnections = new Set();
 
 const app = express();
 const server = http.createServer(app);
@@ -16,12 +15,16 @@ const io = new Server(server);
 
 io.use(require('./config/checkSocketToken'));
 console.log(io.engine.clientsCount);
-console.log(io.engine);
 
 io.on('connection', (socket) => {
-  console.log(io.engine.clientsCount);
   console.log(`[${socket.id}] User '${socket.user.name}' connected`);
-  activeConnections.add(socket.user.name);
+
+  const emitActiveUsers = () => {
+    const users = Array.from(io.sockets.sockets.values())
+      .map(socket => socket.user.name);
+    users.sort();
+    io.emit('active_connections', users);
+  };
 
   socket.on('send_message', async ({ message }) => {
     await sendMessage(io, socket, message);
@@ -29,14 +32,11 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     console.log(`[${socket.id}] User '${socket.user.name}' disconnected`);
-    activeConnections.delete(socket.user.name);
+    emitActiveUsers();
   });
 
-  socket.on('get_active_connections', () => {
-    socket.emit('active_connections', Array.from(activeConnections));
-  });  
-
-});
+  emitActiveUsers();
+})
 
 //middleware
 app.use(logger('dev'));
