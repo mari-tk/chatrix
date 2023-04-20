@@ -13,7 +13,7 @@ async function sendMessage(io, socket, message) {
 
 async function getAllMessages(req, res) {
   try {
-    const messages = await Message.find({}).sort('createdAt');
+    const messages = await Message.find({}).populate('userId').sort('createdAt');
     res.json(messages);
   } catch (error) {
     res.status(400).json(error);
