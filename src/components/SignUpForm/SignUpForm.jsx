@@ -58,6 +58,7 @@ export default class SignUpForm extends Component {
               fullWidth
               id="email"
               label="Name"
+              autoComplete='off'
               name="name"
               autoFocus
               value={this.state.name}
@@ -69,6 +70,7 @@ export default class SignUpForm extends Component {
               fullWidth
               id="email"
               label="Email Address"
+              autoComplete='off'
               name="email"
               autoFocus
               value={this.state.email}
@@ -80,6 +82,7 @@ export default class SignUpForm extends Component {
               fullWidth
               name="password"
               label="Password"
+              autoComplete='off'
               type="password"
               id="password"
               value={this.state.password}
@@ -91,6 +94,7 @@ export default class SignUpForm extends Component {
               fullWidth
               name="confirm"
               label="Confirm Password"
+              autoComplete='off'
               type="password"
               id="password"
               value={this.state.confirm}
