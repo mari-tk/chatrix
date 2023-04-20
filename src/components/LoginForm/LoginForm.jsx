@@ -51,7 +51,7 @@ export default function LoginForm({ setUser }) {
             id="email"
             label="Email Address"
             name="email"
-            autoComplete="email"
+            autoComplete='off'
             autoFocus
             value={credentials.email}
             onChange={handleChange}
