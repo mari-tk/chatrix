@@ -3,7 +3,7 @@ import React from 'react'
 export default function ChatMessage({message}) {
   return (
     <div>
-      {message.userId} : {message.message} @ {message.createdAt}
+      {message.name} : {message.message} @ {message.createdAt}
     </div>
   )
 }
