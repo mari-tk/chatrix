@@ -41,7 +41,7 @@ export default function AuthPage({setUser}) {
         >
           <Link href="#" onClick={() => setSignupForm(!signUp)}> {signUp ? "Have an account? Sign In" : "Don't have an account? SignUp"}</Link>
           <Typography component="h1" variant="h5">
-            <Avatar sx={{ bgcolor: 'purple', margin: "auto"  }}>
+            <Avatar sx={{ bgcolor: 'lightgrey', margin: "auto", mt: 2 }}>
               <LockOutlinedIcon />
             </Avatar>
           {signUp? "Sign Up" : "Log In"}
