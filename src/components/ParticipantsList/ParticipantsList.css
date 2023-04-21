@@ -1,3 +1,5 @@
 .ParticipantsList {
   flex: 3;
+  height: calc(100vh - 64px);
+  padding: 20px;
 }

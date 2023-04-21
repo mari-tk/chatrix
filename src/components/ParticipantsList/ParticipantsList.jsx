@@ -4,7 +4,7 @@ import './ParticipantsList.css'
 
 export default function ParticipantsList({participants}) {
   return (
-    <div className="ParticipantsList">ParticipantsList
+    <div className="ParticipantsList">Participants:
       {participants.map((participant, idx) => 
       <Participant 
         key={idx} 

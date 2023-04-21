@@ -76,7 +76,6 @@ export default function ChatPage({user}) {
 
   return (
     <div className="ChatContainer">
-      ChatPage
       <ParticipantsList participants={activeConnections}/>
       <Chat messages={messages} sendMessage={sendMessage} user={user}/>
     </div>
