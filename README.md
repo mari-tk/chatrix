@@ -1,6 +1,6 @@
 # Chatrix
 
-Is not a regular chat app. Sign up and you'll find out why :) This chat app inclides Sign Up/Sign In functionality, shows online participants in chat, allows participant to send messages in the main chat and each participant has its own unique avatar. (https://robohash.org/)
+Is not a regular chat app. Sign up and you'll find out why :) This chat app includes Sign Up/Sign In functionality, shows online participants in chat, allows participants to send messages in the main chat and each participant has its own unique avatar. (https://robohash.org/)
 
 #Screenshot(s)
 Log In Page
