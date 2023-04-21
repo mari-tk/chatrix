@@ -23,7 +23,6 @@ export default function App() {
         display: 'flex',
         flexDirection: 'column',
         maxHeight: 'calc(100vh-64px)',
-        paddingTop: '64px',
       }}
     >
        {user ? 

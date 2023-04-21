@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import Button from '@mui/material/Button';
+import './ChatInputForm.css'
 
 export default function ChatInputForm({sendMessage}) {
 
@@ -23,7 +24,7 @@ export default function ChatInputForm({sendMessage}) {
     <div>
       <div className="">
         <form autoComplete="off" onSubmit={handleSubmit}>
-          <input className="MessageInput" type="text" name="message"  onChange={handleChange} required />
+          <input className="MessageInput" type="text" name="message" onChange={handleChange} required value={message} />
           <Button variant="contained" type="submit">SEND</Button>
         </form>
       </div>

@@ -25,13 +25,13 @@ export default function Chat({messages, user, sendMessage}) {
       }}
     >
       Chat Messages down below:
-      {Object.keys(messages).map((message, idx) => 
-        <ChatMessage key={idx} message={messages[message]} user={user}/>
+      {Object.values(messages).map(message => 
+        <ChatMessage key={message._id} message={message} user={user}/>
       )}
       
-      <div className="MessageInput">
+
         <ChatInputForm sendMessage={sendMessage} user={user}/>  
-      </div>
+
     </Container>
   )
 }

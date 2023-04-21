@@ -81,6 +81,7 @@ export default function ChatPage({user}) {
       sx={{
         display: 'flex',
         maxHeight: 'calc(100vh - 64px)',
+        paddingTop: '64px',
       }}
     >
       <ParticipantsList participants={activeConnections}/>
