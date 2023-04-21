@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
+import { TextField } from '@mui/material';
 
 export default function ChatInputForm({sendMessage}) {
 
@@ -16,14 +17,25 @@ export default function ChatInputForm({sendMessage}) {
     // Prevent form from being submitted to the server
     evt.preventDefault();
     sendMessage(message);
+    setMessage('');
   }
 
   return (
-    <div> ChatInputForm
+    <div>
       <div className="">
         <form autoComplete="off" onSubmit={handleSubmit}>
-          <label>Enter your message:</label>
-          <input type="text" name="message" value={message} onChange={handleChange} required />
+        <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="text"
+            label="write something..."
+            type="text"
+            id="password"
+            value={message}
+            onChange={handleChange}
+          />
+          {/* <input type="text" name="message"  onChange={handleChange} required /> */}
           <Button variant="contained" type="submit">SEND</Button>
         </form>
       </div>
