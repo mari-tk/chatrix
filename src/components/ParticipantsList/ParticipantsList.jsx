@@ -8,13 +8,11 @@ export default function ParticipantsList({participants}) {
     
     <List className="ParticipantsList"
     sx={{  
-      bgcolor: 'background.paper', 
       padding: '20px',
       listStyle: 'none',
-      bgcolor: 'background.paper' 
     }}
     >
-      Online:
+      Online
       <Divider />
       {participants.map((participant, idx) => 
 

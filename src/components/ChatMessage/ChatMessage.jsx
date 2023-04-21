@@ -25,7 +25,7 @@ export default function ChatMessage({message, user}) {
         <Card
           raised
           sx={{
-            backgroundColor: user._id === message.userId._id ? 'red' : '#1877f2',
+            backgroundColor: user._id === message.userId._id ? '#adadad' : '#1877f2',
             color: 'white',
             marginBottom: '10px',
           }}>
