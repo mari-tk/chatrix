@@ -4,10 +4,12 @@ import RoboAvatar from '../RoboAvatar/RoboAvatar'
 
 export default function Participant({participant}) {
   return (
-    <div className = "Participant">
+    <>
+    <li className = "Participant">
       <RoboAvatar name={participant}
         />
        {participant}
-    </div>
+    </li>
+    </>
   )
 }

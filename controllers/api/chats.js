@@ -8,6 +8,7 @@ module.exports = {
 async function sendMessage(io, socket, message) {
   console.log(`User '${socket.user.name}' sent message ${message}`);
   const dbMessage = await Message.create({message, userId: socket.user});
+  await dbMessage.populate('userId');
   io.emit('receive_message', dbMessage);
 }
 

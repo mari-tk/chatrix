@@ -4,13 +4,14 @@ import './ParticipantsList.css'
 
 export default function ParticipantsList({participants}) {
   return (
-    <div className="ParticipantsList">Participants:
+    <ul className="ParticipantsList">Participants:
       {participants.map((participant, idx) => 
-      <Participant 
-        key={idx} 
-        participant={participant}
-      />
+
+        <Participant 
+          key={idx} 
+          participant={participant}
+        />
       )}
-    </div>
+    </ul>
   )
 }

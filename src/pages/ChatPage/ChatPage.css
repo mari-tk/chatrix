@@ -1,6 +1,7 @@
 .ChatContainer {
   display: flex;
   width: 100%;
-  height: calc(100vh - 50px);
+  flex: 1;
+  /* height: calc(100vh - 50px); */
 }
 
