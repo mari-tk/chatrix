@@ -1,5 +1,5 @@
 .MessagesContainer {
-  flex: 8;
+  flex: 9;
   /* height: calc(100vh - 64px); */
   overflow-y: scroll;
 }

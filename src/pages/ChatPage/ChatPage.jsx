@@ -6,6 +6,7 @@ import * as chatsAPI from '../../utilities/chats-api'
 import Chat from '../../components/Chat/Chat';
 import ParticipantsList from '../../components/ParticipantsList/ParticipantsList';
 import './ChatPage.css'
+import { Container } from '@mui/material';
 
 export default function ChatPage({user}) {
   const [messages, setMessages] = useState([]);
@@ -75,9 +76,15 @@ export default function ChatPage({user}) {
   }, []);
 
   return (
-    <div className="ChatContainer">
+    <Container
+      disableGutters
+      sx={{
+        display: 'flex',
+        maxHeight: 'calc(100vh - 64px)',
+      }}
+    >
       <ParticipantsList participants={activeConnections}/>
       <Chat messages={messages} sendMessage={sendMessage} user={user}/>
-    </div>
+    </Container>
   )
 }

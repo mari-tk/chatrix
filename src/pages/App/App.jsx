@@ -5,6 +5,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar/NavBar'
 import { getUser } from '../../utilities/users-service';
 import ChatPage from '../ChatPage/ChatPage';
+import { Container } from '@mui/material';
 
 export default function App() {
 
@@ -15,7 +16,16 @@ export default function App() {
   }
 
   return (
-    <main className="App">
+    <Container
+      className="App"
+      disableGutters
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        maxHeight: 'calc(100vh-64px)',
+        paddingTop: '64px',
+      }}
+    >
        {user ? 
         <>
           <NavBar user={user} updateUser={updateUser}/>
@@ -28,7 +38,7 @@ export default function App() {
         :
         <AuthPage setUser={updateUser} />
       }
-    </main>
+    </Container>
   )
 }
 
