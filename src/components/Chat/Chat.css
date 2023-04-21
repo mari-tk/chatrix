@@ -1,9 +1,6 @@
 .MessagesContainer {
   flex: 9;
   /* height: calc(100vh - 64px); */
+  padding-right: 20px;
   overflow-y: scroll;
-}
-
-.MessageInput {
-  
 }

@@ -1,15 +1,16 @@
 import React from 'react'
 import './Participant.css'
 import RoboAvatar from '../RoboAvatar/RoboAvatar'
+import { ListItem } from '@mui/material'
 
 export default function Participant({participant}) {
   return (
-    <>
-    <li className = "Participant">
+
+    <ListItem className = "Participant">
       <RoboAvatar name={participant}
         />
        {participant}
-    </li>
-    </>
+    </ListItem>
+
   )
 }

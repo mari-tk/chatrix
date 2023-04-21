@@ -1,0 +1,13 @@
+.ChatMessage {
+  display: flex;
+  margin: 10px 0;
+}
+
+.ChatMessage > .avatar {
+  display: flex;
+  align-items: center;
+}
+
+.ChatMessage > .content {
+  margin-left: 10px;
+}
